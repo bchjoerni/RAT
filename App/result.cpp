@@ -28,6 +28,9 @@ result::result( QWidget *parent ) :
     connect( _ui->btn_save, SIGNAL( clicked() ), this, SLOT( save() ) );
     connect( _ui->btn_close, SIGNAL( clicked() ), this, SLOT( closeReport() ) );
 
+    // connect( _ui->txt_prefixReport, SIGNAL( editingFinished() ), - does not work
+    //         QGuiApplication::inputMethod(), SLOT( hide() ) );
+
     QScrollerProperties scrollerProperties;
     scrollerProperties.setScrollMetric(
                 QScrollerProperties::MaximumClickThroughVelocity, 0 );

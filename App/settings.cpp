@@ -40,6 +40,9 @@ settings::settings( settingsVar* variables, QWidget *parent ) :
              SLOT( drawSpeedTextChangeFinished() ) );
     connect( _ui->btn_apply, SIGNAL( clicked() ), this, SLOT( apply() ) );
     connect( _ui->btn_cancel, SIGNAL( clicked() ), this, SLOT( cancel() ) );
+
+    //connect( _ui->txt_prefix, SIGNAL( editingFinished() ), - does not work ...
+    //         QGuiApplication::inputMethod(), SLOT( hide() ) );
 }
 
 settings::~settings()
@@ -162,7 +165,7 @@ void settings::drawSpeedTextChanged( QString text )
     bool conversionSuccessful = false;
     text.toInt( &conversionSuccessful );
 
-    if( !conversionSuccessful )
+    if( !conversionSuccessful && !text.isEmpty() )
     {
         int settingsValue = _ui->bar_drawSpeed->maximum() -
                 (*_settings).drawSpeed + _ui->bar_drawSpeed->minimum();
@@ -196,6 +199,8 @@ void settings::drawSpeedTextChangeFinished()
         _ui->txt_drawSpeed->setText( QString::number( settingsValue ) );
         _ui->bar_drawSpeed->setValue( settingsValue );
     }
+
+    // qApp->inputMethod()->hide(); does not work
 }
 
 void settings::styleChanged( int index )

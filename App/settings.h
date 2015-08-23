@@ -23,6 +23,7 @@ Copyright 2015 bchjoerni
 #include <QFile>
 #include <QScroller>
 #include <QScrollerProperties>
+#include <QInputMethod>
 
 struct settingsVar
 {
