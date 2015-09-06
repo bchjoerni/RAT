@@ -30,9 +30,10 @@ public:
     explicit graphCompression( QWidget *parent = 0 );
 
 protected:
+    void addPoint( QTime time, int value, int correct );
     void setDrawVariables();
     void drawEvent( QPainter* painter, unsigned int dataPointNum );
-    void drawBackground( QPainter* painter );
+    void drawBackground( QPainter* painter );    
 };
 
 #endif // GRAPHCOMPRESSION_H

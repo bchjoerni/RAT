@@ -306,6 +306,41 @@ QString mainWindow::getTechniqueStyle( int correct )
     }
 }
 
+QString mainWindow::getCurrentTechniqueStyle( int eventNum )
+{
+    switch( eventNum )
+    {
+        case 1:
+        {
+            updateInfoText( "Style:" + _main_portrait.lbl_eventTechnique1->styleSheet() );
+            return _main_portrait.lbl_eventTechnique1->styleSheet();
+            break;
+        }
+        case 2:
+        {
+            return _main_portrait.lbl_eventTechnique2->styleSheet();
+            break;
+        }
+        case 3:
+        {
+            return _main_portrait.lbl_eventTechnique3->styleSheet();
+            break;
+        }
+        case 4:
+        {
+            return _main_portrait.lbl_eventTechnique4->styleSheet();
+            break;
+        }
+        case 5:
+        {
+            return _main_portrait.lbl_eventTechnique5->styleSheet();
+            break;
+        }
+        default: updateInfoText( "Ups, falsche eventNumber (getCurrentTechniqueStyle)" );
+    }
+    return "";
+}
+
 QString mainWindow::getEventText( bool compression )
 {
     QString text = "Kompression";
@@ -328,15 +363,26 @@ void mainWindow::setEvent( bool compression, int value, int correct )
         _eventFinished = false;
     }
 
-    if( value > _lastEventValue || correct != 0 )
+    if( value > _lastEventValue )
     {
-        setEventText( getEventText( compression ),
-                      getValueText( compression, value ),
-                      getValueStyle( compression, value ),
-                      getTechniqueText( correct ),
-                      getTechniqueStyle( correct ),
-                      _eventNumber );
+        setEventType( getEventText( compression ), _eventNumber );
+        setEventValue( getValueText( compression, value ),
+                       getValueStyle( compression, value ), _eventNumber );
         _lastEventValue = value;
+    }
+    if( compression )
+    {
+        if( value >= 2
+            && getCurrentTechniqueStyle( _eventNumber ) != STYLE_WRONG )
+        {
+            setEventTechnique( getTechniqueText( correct ),
+                               getTechniqueStyle( correct ), _eventNumber );
+        }
+    }
+    else
+    {
+        setEventTechnique( getTechniqueText( correct ),
+                           getTechniqueStyle( correct ), _eventNumber );
     }
 }
 
@@ -350,58 +396,100 @@ void mainWindow::clearEvents()
 
 void mainWindow::blankEvent( int eventNum )
 {
-    setEventText( "-", "-", STYLE_NONE, "-", STYLE_NONE, eventNum );
+    setEventType( "-", eventNum );
+    setEventValue( "-", STYLE_NONE, eventNum );
+    setEventTechnique( "-", STYLE_NONE, eventNum );
 }
 
-void mainWindow::setEventText( QString type, QString value, QString styleValue,
-                               QString correct, QString styleCorrect,
-                               int eventNum )
+void mainWindow::setEventType( QString type, int eventNum )
+{
+    switch( eventNum )
+    {
+        case 1: _main_portrait.lbl_eventType1->setText( type );
+            break;
+        case 2: _main_portrait.lbl_eventType2->setText( type );
+            break;
+        case 3: _main_portrait.lbl_eventType3->setText( type );
+            break;
+        case 4: _main_portrait.lbl_eventType4->setText( type );
+            break;
+        case 5: _main_portrait.lbl_eventType5->setText( type );
+            break;
+        default: updateInfoText( "Ups, falsche eventNumber (setEventText)" );
+    }
+}
+
+void mainWindow::setEventValue(  QString value, QString styleValue, int eventNum )
 {
     switch( eventNum )
     {
         case 1:
         {
-            _main_portrait.lbl_eventType1->setText( type );
             _main_portrait.lbl_eventValue1->setText( value );
             _main_portrait.lbl_eventValue1->setStyleSheet( styleValue );
-            _main_portrait.lbl_eventTechnique1->setText( correct );
-            _main_portrait.lbl_eventTechnique1->setStyleSheet( styleCorrect );
             break;
         }
         case 2:
         {
-            _main_portrait.lbl_eventType2->setText( type );
             _main_portrait.lbl_eventValue2->setText( value );
             _main_portrait.lbl_eventValue2->setStyleSheet( styleValue );
-            _main_portrait.lbl_eventTechnique2->setText( correct );
-            _main_portrait.lbl_eventTechnique2->setStyleSheet( styleCorrect );
             break;
         }
         case 3:
         {
-            _main_portrait.lbl_eventType3->setText( type );
             _main_portrait.lbl_eventValue3->setText( value );
             _main_portrait.lbl_eventValue3->setStyleSheet( styleValue );
-            _main_portrait.lbl_eventTechnique3->setText( correct );
-            _main_portrait.lbl_eventTechnique3->setStyleSheet( styleCorrect );
             break;
         }
         case 4:
         {
-            _main_portrait.lbl_eventType4->setText( type );
             _main_portrait.lbl_eventValue4->setText( value );
             _main_portrait.lbl_eventValue4->setStyleSheet( styleValue );
-            _main_portrait.lbl_eventTechnique4->setText( correct );
-            _main_portrait.lbl_eventTechnique4->setStyleSheet( styleCorrect );
             break;
         }
         case 5:
         {
-            _main_portrait.lbl_eventType5->setText( type );
             _main_portrait.lbl_eventValue5->setText( value );
             _main_portrait.lbl_eventValue5->setStyleSheet( styleValue );
-            _main_portrait.lbl_eventTechnique5->setText( correct );
-            _main_portrait.lbl_eventTechnique5->setStyleSheet( styleCorrect );
+            break;
+        }
+        default: updateInfoText( "Ups, falsche eventNumber (setEventText)" );
+    }
+}
+
+void mainWindow::setEventTechnique( QString technique, QString styleTechnique,
+                        int eventNum )
+{
+    switch( eventNum )
+    {
+        case 1:
+        {
+            _main_portrait.lbl_eventTechnique1->setText( technique );
+            _main_portrait.lbl_eventTechnique1->setStyleSheet( styleTechnique );
+            break;
+        }
+        case 2:
+        {
+            _main_portrait.lbl_eventTechnique2->setText( technique );
+            _main_portrait.lbl_eventTechnique2->setStyleSheet( styleTechnique );
+            break;
+        }
+        case 3:
+        {
+            _main_portrait.lbl_eventTechnique3->setText( technique );
+            _main_portrait.lbl_eventTechnique3->setStyleSheet( styleTechnique );
+            break;
+        }
+        case 4:
+        {
+            _main_portrait.lbl_eventTechnique4->setText( technique );
+            _main_portrait.lbl_eventTechnique4->setStyleSheet( styleTechnique );
+            break;
+        }
+        case 5:
+        {
+            _main_portrait.lbl_eventTechnique5->setText( technique );
+            _main_portrait.lbl_eventTechnique5->setStyleSheet( styleTechnique );
             break;
         }
         default: updateInfoText( "Ups, falsche eventNumber (setEventText)" );

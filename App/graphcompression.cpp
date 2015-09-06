@@ -43,6 +43,17 @@ void graphCompression::setDrawVariables()
     _bgColorHeight[2] = this->height() - _border - _bgColorPosition[2];
 }
 
+void graphCompression::addPoint( QTime time, int value, int correct )
+{
+    QColor compColor = COLOR_DEFDRAW;
+    if( correct != 0 && value >= 2 )
+    {
+        compColor = COLOR_SETWRONG;
+    }
+
+    _dataPoints.push_back( graphPoint( time, value, compColor ) );
+}
+
 void graphCompression::drawEvent( QPainter* painter, unsigned int dataPointNum )
 {
     painter->fillRect( _drawPosition, _border, _drawWidth,

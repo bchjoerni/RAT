@@ -94,10 +94,13 @@ private:
     QString getTechniqueText( int correct );
     QString getTechniqueStyle( int correct );
     QString getEventText( bool compression );
+    QString getCurrentTechniqueStyle( int eventNum );
     void clearEvents();
     void blankEvent( int eventNum );
-    void setEventText( QString type, QString value, QString styleValue,
-                       QString correct, QString styleCorrect, int EventNum );
+    void setEventType( QString type, int eventNum );
+    void setEventValue(  QString value, QString styleValue, int eventNum );
+    void setEventTechnique( QString technique, QString styleTechnique,
+                            int eventNum );
     void getEventLabels( QLabel* text, QLabel* value, QLabel* correct,
                          int eventNum );
 
