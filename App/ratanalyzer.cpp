@@ -183,7 +183,7 @@ void ratAnalyzer::ventilation0ToNon0()
 
 void ratAnalyzer::ventilationNon0To0()
 {
-    _ventilationDuration = _startVentilation.msecsTo( _previousData->time );
+    _ventilationDuration = _startVentilation.msecsTo( _currentData->time );
 
     if( _ventilationDuration < _maxVentTimeMs && _enoughVolume &&
             !_volumeTooHigh )
@@ -201,7 +201,7 @@ void ratAnalyzer::ventilationNon0To0()
 
 void ratAnalyzer::ventilationNon0ToNon0()
 {
-    unsigned int duration = _startVentilation.msecsTo( _previousData->time );
+    unsigned int duration = _startVentilation.msecsTo( _currentData->time );
 
     if( duration < _maxVentTimeMs )
     {
