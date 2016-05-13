@@ -92,10 +92,13 @@ void ratAnalyzer::compression0ToNon0()
     {
         _frequencyNow = 60000.0 /
                 _startCompression.msecsTo( _currentData->time );
-        _frequencyTotal = (_frequencyTotal*_frequencyCount + _frequencyNow)
-                / (_frequencyCount + 1);
-        _frequencyCount++;
-        updateFrequency();
+        if( _frequencyNow > 10.0 && _frequencyNow < 300.0 )
+        {
+            _frequencyTotal = (_frequencyTotal*_frequencyCount + _frequencyNow)
+                    / (_frequencyCount + 1);
+            _frequencyCount++;
+            updateFrequency();
+        }
     }
     if( _currentData->compPosition != 0 && _currentData->compDepth > 1 )
     {
