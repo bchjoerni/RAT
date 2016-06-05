@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/styles">
+        <file>stylesheets/black.qss</file>
+        <file>stylesheets/darkorange.qss</file>
+        <file>stylesheets/fire.qss</file>
+        <file>stylesheets/metal.qss</file>
+        <file>stylesheets/sandy.qss</file>
+        <file>stylesheets/standard.qss</file>
+        <file>stylesheets/xmas.qss</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
