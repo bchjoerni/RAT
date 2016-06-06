@@ -63,6 +63,9 @@ private:
     dataPoint _tempDataPoint;
     QTime _startTime;
     int _startMillis;
+    bool _lastVentSetZero; // to eliminate wrong vent counts
+
+    const int MIN_VENTILATION_PAUSE_MS = 10;
 };
 
 #endif // CURRENTANALYZER_H

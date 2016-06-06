@@ -18,7 +18,7 @@ Copyright 2015 bchjoerni
 
 #include "currentanalyzer.h"
 
-currentAnalyzer::currentAnalyzer()
+currentAnalyzer::currentAnalyzer() : _lastVentSetZero( false )
 {
 }
 
@@ -117,6 +117,20 @@ void currentAnalyzer::run()
         _previousData = &(_dataVector[_dataVector.size()-1]);
         _currentData  = &_tempDataPoint;
         analyzeCompression();
+
+        if( _currentData->ventVolume == 1 && _previousData->ventVolume == 0
+                && _previousData->time.msecsTo( _currentData->time )
+                    < MIN_VENTILATION_PAUSE_MS
+                && !_lastVentSetZero ) // avois ripples
+        {
+            _tempDataPoint.ventVolume = 0;
+            _currentData  = &_tempDataPoint;
+            _lastVentSetZero = true;
+        }
+        else
+        {
+            _lastVentSetZero = false;
+        }
         analyzeVentilation();
 
         sensorDataDifferent = !sensorDataEqual(
