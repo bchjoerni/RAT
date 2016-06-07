@@ -253,6 +253,13 @@ void bluetooth::startDemo()
 {
     _demoTimer.start( 77 );
     emit connectionStatus( true );
+
+    int time = _demoCounter*77;
+    char t1 = (time/95/95/95)%95 + 32;
+    char t2 = (time/95/95)%95 + 32;
+    char t3 = (time/95)%95 + 32;
+    char t4 = time%95 + 32;
+    emit messageReceived( "rstart:" + t1 + t2 + t3 + t4 );
 }
 
 void bluetooth::stopDemo()
@@ -264,68 +271,75 @@ void bluetooth::stopDemo()
 void bluetooth::newDemoValue()
 {
     _demoCounter++;
+    int time = _demoCounter*77;
+    char t1 = (time/95/95/95)%95 + 32;
+    char t2 = (time/95/95)%95 + 32;
+    char t3 = (time/95)%95 + 32;
+    char t4 = time%95 + 32;
+    QString tstr = "";
+    tstr = t1 + t2 + t3 + t4;
 
-    if( _demoCounter < 210 )
+    if( (_demoCounter%243) < 210 )
     {
-        switch( _demoCounter%7 )
+        switch( (_demoCounter%243)%7 )
         {
-            case 0: emit messageReceived( "<100>" );
+            case 0: emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
                     break;
-            case 1: emit messageReceived( "<010>" );
+            case 1: emit messageReceived( QString( "d4  " + tstr ).toLatin1() );
                     break;
-            case 2: emit messageReceived( "<020>" );
+            case 2: emit messageReceived( QString( "dA  " + tstr ).toLatin1() );
                     break;
-            case 3: emit messageReceived( "<030>" );
+            case 3: emit messageReceived( QString( "dW  " + tstr ).toLatin1() );
                     break;
-            case 4: emit messageReceived( "<020>" );
+            case 4: emit messageReceived( QString( "dA  " + tstr ).toLatin1() );
                     break;
-            case 5: emit messageReceived( "<010>" );
+            case 5: emit messageReceived( QString( "d4  " + tstr ).toLatin1() );
                     break;
-            case 6: emit messageReceived( "<100>" );
+            case 6: emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
                     break;
         }
     }
-    else if( _demoCounter >= 210 && _demoCounter <  215 )
+    else if( (_demoCounter%243) >= 210 && (_demoCounter%243) <  215 )
     {
-        emit messageReceived( "<100>" );
+        emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
     }
-    else if( _demoCounter >= 215 && _demoCounter < 243)
+    else if( (_demoCounter%243) >= 215 && (_demoCounter%243) < 243)
     {
-        switch( _demoCounter%14 )
+        switch( (_demoCounter%243)%14 )
         {
-            case 5: emit messageReceived( "<100>" );
+            case 5: emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
                     break;
-            case 6: emit messageReceived( "<101>" );
+            case 6: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 7: emit messageReceived( "<101>" );
+            case 7: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 8: emit messageReceived( "<101>" );
+            case 8: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 9: emit messageReceived( "<101>" );
+            case 9: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 10: emit messageReceived( "<102>" );
+            case 10: emit messageReceived( QString( "d a!" + tstr ).toLatin1() );
                 break;
-            case 11: emit messageReceived( "<102>" );
+            case 11: emit messageReceived( QString( "d a!" + tstr ).toLatin1() );
                 break;
-            case 12: emit messageReceived( "<102>" );
+            case 12: emit messageReceived( QString( "d a!" + tstr ).toLatin1() );
                 break;
-            case 13: emit messageReceived( "<102>" );
+            case 13: emit messageReceived( QString( "d a!" + tstr ).toLatin1() );
                 break;
-            case 0: emit messageReceived( "<101>" );
+            case 0: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 1: emit messageReceived( "<101>" );
+            case 1: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 2: emit messageReceived( "<101>" );
+            case 2: emit messageReceived( QString( "d 9!" + tstr ).toLatin1() );
                 break;
-            case 3: emit messageReceived( "<100>" );
+            case 3: emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
                 break;
-            case 4: emit messageReceived( "<100>" );
+            case 4: emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
                 break;
         }
     }
     else
     {
         _demoCounter = 0;
-        emit messageReceived( "<100>" );
+        emit messageReceived( QString( "d  !" + tstr ).toLatin1() );
     }
 }
